@@ -25,8 +25,8 @@ jobs:
         #  SEMGREP_TIMEOUT: 300
 
         with:
-          publishToken: b96a27cb9694a15d6b0f0ba921d3ba020161babd75a8159d3d70659a93d8bc66 
-          publishDeployment: 548
+          publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
+          publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
 
           # Never fail the build due to findings on pushes, but collect findings data
           #auditOn: push
