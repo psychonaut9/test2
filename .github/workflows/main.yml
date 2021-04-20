@@ -1,24 +1,41 @@
-# This is a basic workflow to help you get started with Actions
-
-# Controls when the action will run. 
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 name: Semgrep
+
+on:
+  # Run on all pull requests. Returns the results introduced by the PR.
+  pull_request: {}
+
+  # Run on merges. Returns all results.
+  #push:
+  #    branches: ["master", "main"]
+
 jobs:
   semgrep:
+    name: Scan
     runs-on: ubuntu-latest
-    name: Check
     steps:
-      - uses: actions/checkout@v1
-      - name: Semgrep
-        id: semgrep
-        uses: returntocorp/semgrep-action@v1
+      # Checkout project source
+      - uses: actions/checkout@v2
+
+      # Scan code using project's configuration on https://semgrep.dev/manage
+      - uses: returntocorp/semgrep-action@v1
+
+        # Optionally configure job timeout (default is 1800 seconds; set to 0 to disable)
+        #env:
+        #  SEMGREP_TIMEOUT: 300
+
         with:
-          config: p/r2c
+          publishToken: b96a27cb9694a15d6b0f0ba921d3ba020161babd75a8159d3d70659a93d8bc66 
+          publishDeployment: 548
+
+          # Never fail the build due to findings on pushes, but collect findings data
+          #auditOn: push
+
+          # Generate a SARIF file for GitHub's code scanning feature. See the next step.
+          #generateSarif: "1"
+
+      # Upload SARIF file generated in previous step
+      #- name: Upload SARIF file
+      #  uses: github/codeql-action/upload-sarif@v1
+      #  with:
+      #    sarif_file: semgrep.sarif
+      #  if: always()
