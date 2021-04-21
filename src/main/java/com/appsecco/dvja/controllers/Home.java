@@ -6,6 +6,8 @@ import com.appsecco.dvja.services.ProductService;
 import java.util.List;
 
 public class Home extends BaseController {
+           
+    Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.login = '" + login + "'");
 
     private ProductService productService;
     private List<Product> products;
