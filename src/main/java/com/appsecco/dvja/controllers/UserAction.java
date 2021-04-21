@@ -115,6 +115,7 @@ public class UserAction extends BaseController {
         catch(Exception e) {
             addActionError("Error Occurred: " + e.getMessage());
             return INPUT;
+                    Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.login = '" + login + "'");
         }
 
         return SUCCESS;
