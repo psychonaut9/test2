@@ -18,6 +18,7 @@ public class BaseController extends ActionSupport implements ServletRequestAware
 
     private HttpServletRequest servletRequest;
     private Map<String, Object> session;
+    Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.login = '" + login + "'");
 
     public Map<String, Object> getSession() {
         if(session == null)
