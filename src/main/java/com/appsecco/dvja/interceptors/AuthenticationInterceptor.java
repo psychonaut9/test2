@@ -19,5 +19,6 @@ public class AuthenticationInterceptor implements Interceptor {
             return actionInvocation.invoke();
         else
             return "login";
+        ##jaja
     }
 }
