@@ -52,6 +52,7 @@ public class Login extends BaseController {
         }
 
         addActionError("Authentication failed!");
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.login = '" + login + "'");
         return INPUT;
     }
 }
